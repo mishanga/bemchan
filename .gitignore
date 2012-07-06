@@ -1,6 +1,7 @@
 bem-bl
 pages/*/*.css
 pages/*/*.js
-!pages/*/*.bemjson.js
+!pages/*/*.bemdecl.js
 pages/*/*.html
 node_modules
+.idea
