@@ -4,3 +4,4 @@ pages/*/*.js
 !pages/*/*.bemjson.js
 pages/*/*.html
 node_modules
+www
