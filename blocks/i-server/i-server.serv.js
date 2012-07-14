@@ -1,5 +1,6 @@
 var express = require('express'),
-    app = express.createServer();
+    app = express.createServer(),
+    data = {};
 
 app.listen(3000);
 
