@@ -14,7 +14,8 @@
     "csso": "~1.2.12",
     "borschik": "~0.0.7",
     "uglify-js": "~1.2.6",
-    "express": "*"
+    "express": "*",
+    "mongojs": "*"
   },
   "devDependencies": {},
   "optionalDependencies": {},
