@@ -1,10 +1,14 @@
-serv['b-board'] = function(data) {
+exports.serv = function(ctx, callback) {
 
     var fs = require('fs'),
-        gib = eval(fs.readFileSync('./gibberish/data.js', 'utf-8'));
+        //dummy = eval(fs.readFileSync('../../gibberish/data.js', 'utf-8'));
+        dummy = [
+            { comment: 'b-board 1' },
+            { comment: 'b-board 2' }
+        ];
 
-    return gib.map(function(comm) {
-        return comm.comment;
-    }).join('<br><br>');
+    ctx.data = dummy;
+
+    callback(null);
 
 }

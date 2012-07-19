@@ -1,10 +1,12 @@
 exports.priv = function(ctx, callback) {
 
-    ctx.bemjson = {
-        block: 'b-chan',
-        content: ctx.data.text
-    };
+    var privs = {
+            'b-board': require('../b-board/b-board.priv.js').priv,
+            'b-thread': require('../b-thread/b-thread.priv.js').priv
+        };
 
-    callback(null);
+    privs[ctx.template](ctx, function(err) {
+        callback(null);
+    })
 
 }
