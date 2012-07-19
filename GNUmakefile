@@ -34,7 +34,7 @@ BEM_CREATE=$(BEM) create block \
 	$(call BEM_CREATE,bem-bl/blocks-common/i-bem/bem/techs/html.js)
 
 .PRECIOUS: %.serv.js
-%.serv.js: %.deps.js %.priv.js %.route.js
+%.serv.js: %.deps.js %.priv.js %.route.js %.bemhtml.js
 	$(call BEM_BUILD,bem/techs/serv.js)
 
 .PRECIOUS: %.route.js
@@ -47,7 +47,7 @@ BEM_CREATE=$(BEM) create block \
 
 .PRECIOUS: %.bemhtml.js
 %.bemhtml.js: %.deps.js
-	$(call BEM_BUILD,bem-bl/blocks-common/i-bem/bem/techs/bemhtml.js)
+	$(call BEM_BUILD,bem/techs/bemhtml.js)
 
 %.deps.js: %.bemdecl.js
 	$(call BEM_BUILD,deps.js)
