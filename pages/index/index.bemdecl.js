@@ -1,4 +1,4 @@
 exports.blocks = [
-    { "name": "i-server" },
-    { "name": "b-chan" }
+    { "name": "b-chan" },
+    { "name": "i-server" }
 ];

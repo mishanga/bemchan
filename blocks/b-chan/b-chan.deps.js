@@ -5,6 +5,7 @@
             elem: 'dom',
             mods: {'init': 'auto'}
         },
-        { block: 'b-page' }
+        { block: 'b-page' },
+        { block: 'b-board' }
     ]
 })
