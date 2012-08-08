@@ -1,8 +1,6 @@
 module.exports = function(serves) {
 
-    var server = require('express').createServer(),
-        plates = require('../../pages/index/index.plate.js').plates,
-        BEMHTML = require('../../pages/index/index.bemhtml.js').BEMHTML;
+    var server = require('express')();
 
     server.listen(3000);
 
@@ -14,8 +12,8 @@ module.exports = function(serves) {
         };
 
         serves['b-chan'](ctx, function(err) {
-            plates['b-chan'](ctx, function(err) {
-                var html = BEMHTML.apply(ctx.bemjson);
+            serves.plates['b-chan'](ctx, function(err) {
+                var html = serves.bemhtml.apply(ctx.bemjson);
                 res.writeHeader(200, { 'Content-Type': 'text/html;charset=utf-8' });
                 res.end(html);
             })

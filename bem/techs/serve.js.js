@@ -1,28 +1,9 @@
 var INHERIT = require('inherit'),
+    PATH = require('path'),
     Template = require('bem/lib/template'),
-    Tech = require('bem/lib/tech').Tech,
-    _techShortName;
+    BaseTech = require('./plate.js.js').Tech;
 
-exports.Tech = INHERIT(Tech, {
-
-    _getTechShortName: function(suffix) {
-
-        return _techShortName || (_techShortName = suffix.replace(/\.js$/, ''));
-
-    },
-
-    getBuildResultChunk: function(relPath, path, suffix) {
-
-        var vars = {};
-
-        vars.TechName = this._getTechShortName(suffix) + 's';
-        vars.ChunkPath = relPath;
-
-        return Template.process([
-            "require('{{bemChunkPath}}')({{bemTechName}});"],
-            vars);
-
-    },
+exports.Tech = INHERIT(BaseTech, {
 
     getBuildResult: function(prefixes, suffix, outputDir, outputName) {
 
@@ -30,31 +11,22 @@ exports.Tech = INHERIT(Tech, {
 
         return this.__base(prefixes, suffix, outputDir, outputName).then(function(result) {
 
-            var vars = {};
-
-            vars.TechName = _this._getTechShortName(suffix) + 's';
+            var _getTechPath = function(name) {
+                    return './' + outputName + '.' + name + '.js';
+                },
+                vars = {
+                    Bemhtml: _getTechPath('bemhtml'),
+                    Plate: _getTechPath('plate'),
+                    TechName: _this._getTechShortName(suffix)
+                };
 
             return Template.process([
-                'var {{bemTechName}} = {};\n',
-                result.join(''),
-                'exports.{{bemTechName}} = {{bemTechName}}'],
+                result,
+                "{{bemTechName}}.bemhtml = require('{{bemBemhtml}}').BEMHTML;",
+                "{{bemTechName}}.plates = require('{{bemPlate}}').plates;"],
                 vars);
 
-        });
-
-    },
-
-    getCreateResult: function(path, suffix, vars) {
-
-        vars.TechName = suffix.replace(/\.js$/, '');
-
-        return Template.process([
-            'module.exports = function({{bemTechName}}) {',
-                "{{bemTechName}}[{{bemBlockName}}] = function(ctx, callback) {",
-                '',
-                '}',
-            '})({{bemTechName}});'],
-            vars);
+        })
 
     }
 

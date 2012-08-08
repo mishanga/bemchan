@@ -1,7 +1,7 @@
 OPTIMIZED=$(foreach F,$1,$(dir $F)_$(notdir $F).$2)
 
 BDECL := $(wildcard pages/*/*.bemdecl.js)
-SERV := $(patsubst %.bemdecl.js,%.serv.js,$(BDECL))
+SERV := $(patsubst %.bemdecl.js,%.serve.js,$(BDECL))
 #PREFIXES := $(patsubst %.bemdecl.js,%,$(BDECL))
 JS_O = $(call OPTIMIZED,$(PREFIXES),js)
 CSS_O = $(call OPTIMIZED,$(PREFIXES),css)
@@ -37,21 +37,9 @@ BEM_CREATE=$(BEM) create block \
 %.serve.js: %.deps.js %.plate.js
 	$(call BEM_BUILD,bem/techs/serve.js)
 
-.PRECIOUS: %.serv.js
-%.serv.js: %.deps.js %.priv.js %.route.js %.bemhtml.js %.serve.js
-	$(call BEM_BUILD,bem/techs/serv.js)
-
 .PRECIOUS: %.plate.js
-%.plate.js: %.deps.js
+%.plate.js: %.deps.js %.bemhtml.js
 	$(call BEM_BUILD,bem/techs/plate.js)
-
-.PRECIOUS: %.route.js
-%.route.js: %.deps.js
-	$(call BEM_BUILD,bem/techs/route.js)
-
-.PRECIOUS: %.priv.js
-%.priv.js: %.deps.js
-	$(call BEM_BUILD,bem/techs/priv.js)
 
 .PRECIOUS: %.bemhtml.js
 %.bemhtml.js: %.deps.js
