@@ -2,10 +2,9 @@ module.exports = function(serves) {
 
     serves['b-chan'] = function(ctx, callback) {
 
-        ctx.data = [
-            { id: '112233', comment: 'Solar System'},
-            { id: '223344', comment: 'Voyager'}
-        ]
+        ctx.data = ctx.db.getBoard();
+
+        console.log(ctx.data)
 
         callback(null);
     }

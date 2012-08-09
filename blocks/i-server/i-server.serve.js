@@ -8,7 +8,8 @@ module.exports = function(serves) {
 
         var ctx = {
             req: req,
-            cgi: function() {}
+            cgi: function() {},
+            db: serves['i-db']
         };
 
         serves['b-chan'](ctx, function(err) {
