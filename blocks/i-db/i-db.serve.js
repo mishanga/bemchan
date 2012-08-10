@@ -4,24 +4,38 @@ module.exports = function(serves) {
 
     serves['i-db'] = {
 
-        getBoard: function(id) {
+        getBoard: function(id, callback) {
 
             var board = [];
 
-            return db.comments.find(null, function(err, comments) {
-                if (err) { console.log('no comments') };
+            db.comments.find(null, function(err, comments) {
+                if (err) { console.log('==! i-db error: no comments') };
                 comments.forEach(function(comment) {
                     board.push(comment)
                 });
-
-                return board;
-            });
+                callback(board);
+            }).sort({date: -1});
 
         },
 
-        getPost: function(id) {
+        getComment: function(id, callback) {
 
-            return { id: '223344', comment: 'Voyager'};
+            db.comments.find({ id: id }, function(err, comment) {
+                if (err) { console.log('==! i-db error: no comment') };
+                callback(comment);
+            })
+
+        },
+
+        postComment: function(comment, callback) {
+
+            db.comments.insert({
+                id: Math.floor(Math.random() * 10000),
+                date: new Date(),
+                message: comment.message
+            }, function(err) {
+                callback();
+            })
 
         }
 
