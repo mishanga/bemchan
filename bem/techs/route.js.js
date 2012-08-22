@@ -1,1 +1,0 @@
-exports.baseTechPath = require.resolve('./priv.js');
